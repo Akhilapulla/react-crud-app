@@ -10,31 +10,33 @@ function Home() {
     setEmployees([...employees, { ...emp, id: Date.now() }]);
   };
 
-  const deleteEmployee = (id) => {
-    setEmployees(employees.filter((e) => e.id !== id));
-  };
-
   const updateEmployee = (updatedEmp) => {
     setEmployees(
-      employees.map((e) =>
-        e.id === updatedEmp.id ? updatedEmp : e
+      employees.map((emp) =>
+        emp.id === updatedEmp.id ? updatedEmp : emp
       )
     );
     setEditData(null);
   };
 
+  const deleteEmployee = (id) => {
+    setEmployees(employees.filter((emp) => emp.id !== id));
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Employee CRUD App</h2>
+    <div className="app-container">
+      <h2>Employee Management System</h2>
+
       <EmployeeForm
         addEmployee={addEmployee}
         editData={editData}
         updateEmployee={updateEmployee}
       />
+
       <EmployeeList
         employees={employees}
-        deleteEmployee={deleteEmployee}
         setEditData={setEditData}
+        deleteEmployee={deleteEmployee}
       />
     </div>
   );

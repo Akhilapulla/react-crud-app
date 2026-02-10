@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function EmployeeForm({ addEmployee, editData, updateEmployee }) {
   const [name, setName] = useState("");
@@ -25,19 +25,25 @@ function EmployeeForm({ addEmployee, editData, updateEmployee }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <input
-        placeholder="Name"
+        type="text"
+        placeholder="Employee Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        required
       />
+
       <input
+        type="text"
         placeholder="Role"
         value={role}
         onChange={(e) => setRole(e.target.value)}
+        required
       />
-      <button type="submit">
-        {editData ? "Update" : "Add"}
+
+      <button className="btn-primary" type="submit">
+        {editData ? "Update Employee" : "Add Employee"}
       </button>
     </form>
   );
