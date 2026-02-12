@@ -1,61 +1,44 @@
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
+  font-family: "Segoe UI", sans-serif;
+  background: #f4f6f8;
 }
 
 .app-container {
   max-width: 900px;
-  margin: 50px auto;
-  background: #ffffff;
+  margin: 40px auto;
+  background: white;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-/* FORM */
-.form {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 25px;
-}
-
-.form input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* BUTTONS */
+/* Buttons */
 .btn-primary {
-  background-color: #2563eb;
+  background: #2563eb;
   color: white;
   border: none;
   padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
-}
-
-.btn-primary:hover {
-  background-color: #1e40af;
+  margin-bottom: 15px;
 }
 
 .btn-edit {
-  background-color: #f59e0b;
+  background: #f59e0b;
   border: none;
   padding: 6px 10px;
-  border-radius: 4px;
   margin-right: 8px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 .btn-delete {
-  background-color: #ef4444;
+  background: #ef4444;
   color: white;
   border: none;
   padding: 6px 10px;
@@ -63,7 +46,16 @@ h2 {
   cursor: pointer;
 }
 
-/* TABLE */
+/* Search */
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Table */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -76,11 +68,52 @@ h2 {
 }
 
 .table th {
-  background-color: #f1f5f9;
+  background: #f1f5f9;
 }
 
 .empty {
   text-align: center;
   padding: 20px;
   color: gray;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }

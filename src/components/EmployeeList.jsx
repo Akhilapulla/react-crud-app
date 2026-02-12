@@ -1,4 +1,4 @@
-function EmployeeList({ employees, setEditData, deleteEmployee }) {
+function EmployeeList({ employees, setEditData, deleteEmployee, openModal }) {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       deleteEmployee(id);
@@ -19,7 +19,7 @@ function EmployeeList({ employees, setEditData, deleteEmployee }) {
         {employees.length === 0 ? (
           <tr>
             <td colSpan="3" className="empty">
-              No employees added yet
+              No employees found
             </td>
           </tr>
         ) : (
@@ -30,7 +30,10 @@ function EmployeeList({ employees, setEditData, deleteEmployee }) {
               <td>
                 <button
                   className="btn-edit"
-                  onClick={() => setEditData(emp)}
+                  onClick={() => {
+                    setEditData(emp);
+                    openModal();
+                  }}
                 >
                   Edit
                 </button>

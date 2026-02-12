@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function EmployeeForm({ addEmployee, editData, updateEmployee }) {
+function EmployeeForm({ addEmployee, editData, updateEmployee, closeModal }) {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
 
@@ -22,10 +22,13 @@ function EmployeeForm({ addEmployee, editData, updateEmployee }) {
 
     setName("");
     setRole("");
+    closeModal();
   };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
+      <h3>{editData ? "Edit Employee" : "Add Employee"}</h3>
+
       <input
         type="text"
         placeholder="Employee Name"
@@ -43,7 +46,7 @@ function EmployeeForm({ addEmployee, editData, updateEmployee }) {
       />
 
       <button className="btn-primary" type="submit">
-        {editData ? "Update Employee" : "Add Employee"}
+        {editData ? "Update" : "Add"}
       </button>
     </form>
   );
