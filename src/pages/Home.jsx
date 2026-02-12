@@ -7,7 +7,12 @@ function Home() {
   const [employees, setEmployees] = useState([]);
   const [editData, setEditData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const employeesPerPage = 5;
 
   const addEmployee = (emp) => {
     setEmployees([...employees, { ...emp, id: Date.now() }]);
@@ -26,40 +31,89 @@ function Home() {
     setEmployees(employees.filter((emp) => emp.id !== id));
   };
 
-  const filteredEmployees = employees.filter(
-    (emp) =>
-      emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.role.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredEmployees = employees
+    .filter(
+      (emp) =>
+        emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        emp.role.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) =>
+      sortOrder === "asc"
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name)
+    );
+
+  const indexOfLast = currentPage * employeesPerPage;
+  const indexOfFirst = indexOfLast - employeesPerPage;
+  const currentEmployees = filteredEmployees.slice(
+    indexOfFirst,
+    indexOfLast
+  );
+
+  const totalPages = Math.ceil(
+    filteredEmployees.length / employeesPerPage
   );
 
   return (
-    <div className="app-container">
-      <h2>Employee Management System</h2>
+    <div className="dashboard">
+      <div className="card">
+        <h2>Employee Management Dashboard</h2>
 
-      <button
-        className="btn-primary"
-        onClick={() => {
-          setEditData(null);
-          setIsModalOpen(true);
-        }}
-      >
-        Add Employee
-      </button>
+        <div className="top-bar">
+          <button
+            className="btn-primary"
+            onClick={() => {
+              setEditData(null);
+              setIsModalOpen(true);
+            }}
+          >
+            + Add Employee
+          </button>
 
-      <input
-        className="search-input"
-        type="text"
-        placeholder="Search by name or role..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Search employees..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
+          />
 
-      <EmployeeList
-        employees={filteredEmployees}
-        setEditData={setEditData}
-        deleteEmployee={deleteEmployee}
-        openModal={() => setIsModalOpen(true)}
-      />
+          <select
+            className="sort-select"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+          >
+            <option value="asc">Sort A-Z</option>
+            <option value="desc">Sort Z-A</option>
+          </select>
+        </div>
+
+        <EmployeeList
+          employees={currentEmployees}
+          setEditData={setEditData}
+          deleteEmployee={deleteEmployee}
+          openModal={() => setIsModalOpen(true)}
+        />
+
+        <div className="pagination">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              className={
+                currentPage === i + 1
+                  ? "page-btn active-page"
+                  : "page-btn"
+              }
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <EmployeeForm

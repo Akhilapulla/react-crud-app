@@ -20,8 +20,6 @@ function EmployeeForm({ addEmployee, editData, updateEmployee, closeModal }) {
       addEmployee({ name, role });
     }
 
-    setName("");
-    setRole("");
     closeModal();
   };
 
