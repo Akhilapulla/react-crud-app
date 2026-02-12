@@ -7,11 +7,11 @@ function Home() {
   const [employees, setEmployees] = useState([]);
   const [editData, setEditData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [darkMode, setDarkMode] = useState(false);
+
   const employeesPerPage = 5;
 
   const addEmployee = (emp) => {
@@ -55,9 +55,19 @@ function Home() {
   );
 
   return (
-    <div className="dashboard">
+    <div className={darkMode ? "dashboard dark" : "dashboard"}>
       <div className="card">
-        <h2>Employee Management Dashboard</h2>
+        <div className="header">
+          <h2>Employee Management</h2>
+
+          {/* Small Dark Mode Toggle */}
+          <button
+            className="theme-toggle"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? "☀" : "🌙"}
+          </button>
+        </div>
 
         <div className="top-bar">
           <button
@@ -67,13 +77,13 @@ function Home() {
               setIsModalOpen(true);
             }}
           >
-            + Add Employee
+            + Add
           </button>
 
           <input
             className="search-input"
             type="text"
-            placeholder="Search employees..."
+            placeholder="Search..."
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -86,8 +96,8 @@ function Home() {
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
           >
-            <option value="asc">Sort A-Z</option>
-            <option value="desc">Sort Z-A</option>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
           </select>
         </div>
 
